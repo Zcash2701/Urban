@@ -16,11 +16,12 @@ print('{} == {} != {}'.format(first_sum, second_sum, not(result))) # :)
 print(result, end='\n\n')
 
 #4rd program
+# ver 1
 str_text = '123.456'
 number = float(str_text)
 number = int(((number - int(number)) * 10))
 print(number)
 
+#ver 2
 number2 = int(((float(str_text)) * 10)) % 10
-
 print(number2)
