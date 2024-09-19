@@ -21,7 +21,6 @@ number = float(str_text)
 number = int(((number - int(number)) * 10))
 print(number)
 
-str_text = '123.456'
 number2 = int(((float(str_text)) * 10)) % 10
 
 print(number2)
