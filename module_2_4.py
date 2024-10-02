@@ -3,14 +3,14 @@ primes = list()
 not_primes = list()
 
 count = 0
-for i in numbers:
+for i in range(1 ,len(numbers)):
+
     for j in range(1, i-1):
-        if i % numbers[j] == 0:
-            not_primes.append(i)
+        if numbers[i] % numbers[j] == 0:
+            not_primes.append(numbers[i])
             break
     else:
-        primes.append(i)
+        primes.append(numbers[i])
 
 print(primes)
 print(not_primes)
-
