@@ -23,22 +23,21 @@ class House:
         self.number_floor = self.number_floor + value
         return self.number_floor
 
-    def __eq__(self, other):
-        return self.number_floor == other
-
     def __radd__(self, other):
         self.number_floor = other + self.number_floor
         return self.number_floor
 
+    def __eq__(self, other):
+        return self.number_floor == other
+    
     def __lt__(self, other):
-
         return self.number_floor < other
 
     def __le__(self, other):
         return self.number_floor <= other
 
     def __gt__(self, other):
-        return self.number_floor > other #.number_floor
+        return self.number_floor > other 
 
     def __ge__(self, other):
         return self.number_floor >= other
