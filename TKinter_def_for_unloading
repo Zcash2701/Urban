@@ -1,0 +1,127 @@
+import openpyxl as op
+from openpyxl.styles import PatternFill
+from datetime import datetime
+
+list_bekasovo = ('ERD-577', 'ERD-578', 'ERD-579', 'ERD-580', 'ERD-582',
+                 'ERD-583', 'ERD-584', 'ERD-585', 'ERD-587', 'ERD-588')
+
+list_ng4_14 = ('ERD-477', 'ERD-478', 'ERD-479', 'ERD-480', 'ERD-482')
+
+def by_temperature(file, min_pom, max_pom, min_cont, max_cont):
+    book = op.load_workbook(file)
+    sheet = book.active
+    max_vols = sheet.max_row
+    fill_blue = PatternFill('solid', fgColor='93ccdd')
+    fill_red = PatternFill('solid', fgColor='e6b8b8')
+    fill_purpl = PatternFill('solid', fgColor='cdc0da')
+
+    for i_id in range(max_vols + 1):
+        try:
+            num = int(sheet.cell(row=i_id, column=13).value)
+            if num == 'SNMP No-Such-Instance':
+                continue
+            elif num <= int(min_pom):
+                sheet[f'M{i_id}'].fill = fill_blue
+            elif num >= int(max_pom):
+                sheet[f'M{i_id}'].fill = fill_red
+        except:
+            continue
+
+    for j_id in range(max_vols + 1):
+        try:
+            num = int(sheet.cell(row=j_id, column=14).value)
+            if num == 'SNMP No-Such-Instance':
+                continue
+
+            elif num <= int(min_pom):
+                sheet[f'N{j_id}'].fill = fill_blue
+            elif num >= int(max_pom):
+                sheet[f'N{j_id}'].fill = fill_red
+        except:
+            continue
+
+    for e_id in range(max_vols + 1):
+        try:
+            num = str(sheet.cell(row=e_id, column=7).value)
+            if num == 'Есть':
+                sheet[f'G{e_id}'].fill = fill_purpl
+
+        except:
+            continue
+
+    for f_id in range(max_vols + 1):
+        try:
+
+            num = int(sheet.cell(row=f_id, column=6).value)
+            if num == 'SNMP No-Such-Instance':
+                continue
+
+            elif num <= (min_cont):
+                sheet[f'F{f_id}'].fill = fill_blue
+            elif num >= (max_cont):
+                sheet[f'F{f_id}'].fill = fill_red
+        except:
+            continue
+
+    now_time = datetime.now()
+    file_name = f'Выгрузка по температурам {now_time.day}.{now_time.month}.{now_time.year}.xlsx'
+    file_path = f'D://Python//Project//Urban//Выгрузки//{file_name}'
+    book.save(file_path)
+    return file_name
+
+def by_ng4(file, info_list):
+    print(file)
+    book = op.load_workbook(file)
+    sheet = book.active
+    max_vols = sheet.max_row
+    file_name = ''
+    for keys, value in info_list.items():
+
+        print(keys, value.get())
+        if int(value.get()):
+            file_name += f'{keys}, '
+            temp_list = book.create_sheet(keys)
+            temp_list.column_dimensions['A'].width = 18
+            temp_list.column_dimensions['C'].width = 50
+            _ = [temp_list.append(row) for row in sheet.iter_rows(min_row=1, max_row=1, values_only=True)]
+            for i_row in range(2, max_vols):
+
+                if str(sheet.cell(row=i_row, column=2).value) == keys:
+                    _ = [temp_list.append(row) for row in sheet.iter_rows(min_row=i_row, max_row=i_row, values_only=True)]
+
+    book.remove(sheet)
+    file_name = f'{file_name}.xlsx'
+    file_path = f'D://Python//Project//Urban//Выгрузки//{file_name}'
+    book.save(file_path)
+    return file_name
+
+
+def by_bek_and_ng4_14(file):
+    global list_bekasovo
+    global list_ng4_14
+    book = op.load_workbook(file)
+    sheet = book.active
+    max_vols = sheet.max_row
+
+    temp_list = book.create_sheet("Стр 1")
+    _ = [temp_list.append(row) for row in sheet.iter_rows(min_row=1, max_row=1, values_only=True)]
+    temp_list.column_dimensions['A'].width = 18
+    temp_list.column_dimensions['C'].width = 50
+
+    for id_i in range(2, max_vols):
+        erd_now = str(sheet.cell(row=id_i, column=5).value)
+        if erd_now in list_bekasovo:
+            _ = [temp_list.append(row) for row in sheet.iter_rows(min_row=id_i, max_row=id_i, values_only=True)]
+
+    _ = [temp_list.append(row) for row in sheet.iter_rows(min_row=1, max_row=1, values_only=True)]
+
+    for id_i in range(2, max_vols):
+        erd_now = str(sheet.cell(row=id_i, column=5).value)
+        if erd_now in list_ng4_14:
+            _ = [temp_list.append(row) for row in sheet.iter_rows(min_row=id_i, max_row=id_i, values_only=True)]
+
+
+    file_name = f'Выгрузка Бекасово и НГЧ14.xlsx'
+    file_path = f'D://Python//Project//Urban//Выгрузки//{file_name}'
+    book.save(file_path)
+    return file_name
