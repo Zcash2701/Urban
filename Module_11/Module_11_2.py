@@ -1,6 +1,6 @@
 import inspect
 import pprint
-from Module_10 import Module_10_4
+
 
 class TestClass:
     test_atr = 1
@@ -16,7 +16,6 @@ def introspection_info(obj):
         if attr_name.startswith('__') and attr_name.endswith('__'):
             methods_list.append(attr_name)
             name_list.remove(attr_name)
-    #print(name_list)
 
     for attr_name in name_list:
         attr = getattr(obj, attr_name)
