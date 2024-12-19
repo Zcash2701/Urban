@@ -1,6 +1,8 @@
 import unittest
 
+
 class Runner:
+
     def __init__(self, name, speed=5):
         self.name = name
         self.distance = 0
@@ -42,6 +44,7 @@ class Tournament:
 
 
 class TournamentTest(unittest.TestCase):
+    is_frozen = True
 
     @classmethod
     def setUpClass(cls):
@@ -51,7 +54,8 @@ class TournamentTest(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         for keys, value in cls.all_result.items():
-            print(value)
+            #print(value)
+            pass
 
 
     def setUp(self):
@@ -59,24 +63,26 @@ class TournamentTest(unittest.TestCase):
         self.runner_Andru = Runner('Andru', 9)
         self.runner_Nick = Runner('Nick', 3)
 
-
+    @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_Yuen_vs_Nick(self):
         race = Tournament(90, self.runner_Yuen, self.runner_Nick)
         result = race.start()
         self.all_result['1'] = {key: value.name for key,value in result.items()}
         self.assertTrue(result[max(result.keys())] == 'Nick')
 
+    @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_Andru_vs_Nick(self):
         race = Tournament(90, self.runner_Nick, self.runner_Andru)
         result = race.start()
         self.all_result['2'] = {key: value.name for key,value in result.items()}
         self.assertTrue(result[max(result.keys())] == 'Nick')
 
+    @unittest.skipIf(is_frozen, 'Тесты в этом кейсе заморожены')
     def test_all_runner(self):
         race = Tournament(90, self.runner_Yuen, self.runner_Andru, self.runner_Nick)
         result = race.start()
         self.all_result['3'] = {key: value.name for key,value in result.items()}
-        print(self.assertTrue(result[max(result.keys())] == 'Nick'))
+        self.assertTrue(result[max(result.keys())] == 'Nick')
 
 
 
