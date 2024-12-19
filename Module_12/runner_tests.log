@@ -1,0 +1,24 @@
+2024-12-19 15:50:01,130 | ERROR | Имя может быть только строкой, передано int
+Traceback (most recent call last):
+  File "D:\Python\Project\Urban\Module_12\Module_12_4.py", line 87, in test_run
+    runner = Runner(name, speed)
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Project\Urban\Module_12\Module_12_4.py", line 11, in __init__
+    raise TypeError(f'Имя может быть только строкой, передано {type(name).__name__}')
+TypeError: Имя может быть только строкой, передано int
+2024-12-19 15:50:01,131 | ERROR | Скорость не может быть отрицательной, сейчас -6
+Traceback (most recent call last):
+  File "D:\Python\Project\Urban\Module_12\Module_12_4.py", line 69, in test_walk
+    walker = Runner(name, speed)
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Project\Urban\Module_12\Module_12_4.py", line 18, in __init__
+    raise ValueError(f'Скорость не может быть отрицательной, сейчас {speed}')
+ValueError: Скорость не может быть отрицательной, сейчас -6
+2024-12-19 15:50:01,136 | ERROR | Скорость не может быть отрицательной, сейчас -6
+Traceback (most recent call last):
+  File "D:\Python\Project\Urban\Module_12\Module_12_4.py", line 69, in test_walk
+    walker = Runner(name, speed)
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Python\Project\Urban\Module_12\Module_12_4.py", line 18, in __init__
+    raise ValueError(f'Скорость не может быть отрицательной, сейчас {speed}')
+ValueError: Скорость не может быть отрицательной, сейчас -6
