@@ -10,7 +10,9 @@ print(9.99 > 9.98 and 1000 != 1000.1, end='\n\n')
 
 #3rd program
 first_sum = 2 * 2 + 2
+print(first_sum)
 second_sum = 2 * (2 + 2)
+print(second_sum)
 result = first_sum == second_sum
 print('{} == {} != {}'.format(first_sum, second_sum, not(result))) # :)
 print(result, end='\n\n')
