@@ -83,9 +83,11 @@ async def send_calories(message, state):
     await state.finish()
     result = 10 * int(data['weight']) + 6.25 * int(data['growth']) - 5 * int(data['age']) + 5
     await message.answer(result)
-    print(data)
 
 
+@dp.message_handler()
+async def all_massages(message):
+    await message.answer(text= 'Введите команду /start, чтобы начать общение.')
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)

@@ -89,8 +89,8 @@ async def send_calories(message, state):
 
 
 @dp.message_handler()
-async def echo_message(message):
-    await message.answer(message.text)
+async def all_massages(message):
+    await message.answer(text= 'Введите команду /start, чтобы начать общение.')
 
 
 
