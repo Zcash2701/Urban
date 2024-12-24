@@ -43,8 +43,6 @@ async def set_age(message):
     await UserState.age.set()
 
 
-
-
 @dp.message_handler(state=UserState.age)
 async def set_growth(message, state):
     """
@@ -93,7 +91,12 @@ async def send_calories(message, state):
     await state.finish()
     result = 10 * int(data['weight']) + 6.25 * int(data['growth']) - 5 * int(data['age']) + 5
     await message.answer(result)
-    print(data)
+
+
+
+@dp.message_handler()
+async def echo_message(message):
+    await message.answer(message.text)
 
 
 
